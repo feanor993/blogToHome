@@ -4,7 +4,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: () => ({
       ArticleCardList: [],
-      NewsList: [1, 2],
+      NewsList: [],
       Titles: {},
       CompilationsList: []
     }),
