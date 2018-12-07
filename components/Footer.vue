@@ -2,14 +2,14 @@
   <footer class="footer">
     <Subscribe/>
     <div class="footer__menu">
-      <router-link 
+      <nuxt-link 
         to="/" 
         class="footer__logo">
         <img
           class="main-logo__img" 
           src="~/assets/img/logo-invert.svg" 
           alt="Главный логотип сайта">
-      </router-link>
+      </nuxt-link>
       <Social/>
       <MyNav class="menu--footer"/>
       <p class="footer__content">

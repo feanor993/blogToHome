@@ -9,10 +9,12 @@
 
 <script>
 export default {
+  name: 'Subject',
+
   props: {
     title: {
       type: String,
-      required: true
+      default: ''
     }
   }
 }

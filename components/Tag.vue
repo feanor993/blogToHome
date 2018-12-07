@@ -2,16 +2,18 @@
   <li class="tags__item">
     <nuxt-link
       to="/search"
-      class="tags">#{ {title }}</nuxt-link>
+      class="tags">#{{ title }}</nuxt-link>
   </li>
 </template>
 
 <script>
 export default {
+  name: 'Tag',
+
   props: {
     title: {
       type: String,
-      required: true
+      default: ''
     }
   }
 }

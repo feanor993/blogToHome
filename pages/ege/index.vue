@@ -69,6 +69,8 @@ import Tag from '~/components/Tag.vue'
 import Subject from '~/components/Subject.vue'
 
 export default {
+  name: 'Catalog',
+
   components: {
     ArticleCard,
     Tag,

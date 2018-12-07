@@ -24,7 +24,7 @@
         <div class="news">
           <h3 class="news__heading">Новости</h3>
           <div class="news__list">
-            <News
+            <NewsItem
               v-for="news in newsSlice"
               :key="news.code"
               :href="news.code"
@@ -33,9 +33,9 @@
               :views="news.views"
             />
           </div>
-          <router-link
+          <nuxt-link
             to="/news"
-            class="news__all">Все новости</router-link>
+            class="news__all">Все новости</nuxt-link>
         </div>
       </section>
 
@@ -49,8 +49,8 @@
             :key="article.code"
             :code="article.code"
             :cover-big="article.coverBig"
-            :cover-begular="article.coverRegular"
-            :cover-bedium="article.coverMedium"
+            :cover-regular="article.coverRegular"
+            :cover-medium="article.coverMedium"
             :category="article.category"
             :subject="article.subject"
             :title="article.title"
@@ -61,16 +61,15 @@
         </div>
       </section>
 
-    <!-- <ShowMore class="show-more--mb-115"/> -->
     </main>
 
     <section class="compil__wrapper">
       <div class="main">
         <div class="article__container--jcsb">
           <h1>Подборки</h1>
-          <router-link
-            to="/compilationsAll"
-            class="compil__all">Все подборки</router-link>
+          <nuxt-link
+            to="/compilations"
+            class="compil__all">Все подборки</nuxt-link>
         </div>
         <div class="article__container compil__list compil--three">
           <Compilation
@@ -91,8 +90,7 @@
 
 <script>
 import ArticleCard from '~/components/ArticleCard.vue'
-import News from '~/components/News.vue'
-// import ShowMore from "@/components/ShowMore.vue";
+import NewsItem from '~/components/NewsItem.vue'
 import Compilation from '~/components/Compilation.vue'
 
 export default {
@@ -100,8 +98,7 @@ export default {
 
   components: {
     ArticleCard,
-    News,
-    // ShowMore,
+    NewsItem,
     Compilation
   },
 

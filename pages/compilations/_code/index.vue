@@ -1,21 +1,20 @@
 <template>
   <div class="main">
     <div class="compil-banner">
-      <img
+      <!-- <img
         :src="compilation.innerImage"
         class="compil-banner__cover"
-        alt="Обложка подборки">
+        alt="Обложка подборки"> -->
       <div class="compil-banner__content">
-        <h1
+        <!-- <h1
           class="compil-banner__heading"
           v-text="compilation.innerTitle"/>
         <p
           class="compil-banner__text"
-          v-text="compilation.innerSubtitle"/>
+          v-text="compilation.innerSubtitle"/> -->
       </div>
     </div>
     <div class="article__container compil__item-page">
-
       <ArticleCard
         v-for="article in articles"
         :key="article.code"
@@ -30,7 +29,6 @@
         :views="article.views"
         :alt-text="article.altText"
       />
-      
     </div>
   </div>
 </template>
@@ -39,6 +37,8 @@
 import ArticleCard from '~/components/ArticleCard.vue'
 
 export default {
+  name: 'Compilation',
+
   components: {
     ArticleCard
   },
@@ -49,18 +49,18 @@ export default {
         'code',
         this.$route.params.code
       ])
-    },
-    articles() {
-      return this._.reduce(
-        this.compilation.innerArticles,
-        (res, elem) => {
-          return res.concat(
-            this._.find(this.$store.state.ArticleCardList, ['code', elem])
-          )
-        },
-        []
-      )
     }
+    // articles() {
+    //   return this._.reduce(
+    //     this.compilation.innerArticles,
+    //     (res, elem) => {
+    //       return res.concat(
+    //         this._.find(this.$store.state.ArticleCardList, ['code', elem])
+    //       )
+    //     },
+    //     []
+    //   )
+    // }
   },
 
   mounted() {

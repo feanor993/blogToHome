@@ -23,9 +23,9 @@
             href="mailto:media@school-olymp.ru"
             class="link link--red">media@school-olymp.ru</a>
           или заполните
-          <router-link
+          <nuxt-link
             to="/about#form"
-            class="link link--red">форму обратной связи</router-link>.
+            class="link link--red">форму обратной связи</nuxt-link>.
         </p>
       </section>
 

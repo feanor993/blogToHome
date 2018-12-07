@@ -10,86 +10,80 @@
         <label class="feedback__label">
           ФИО
           <input
-            v-model="feedbackData.name"
             class="feeadback__input"
             type="text"
             name="name"
-            placeholder="Иванов Иван Иванович">
+            placeholder="Иванов Иван Иванович"
+          >
           <span
-            v-if="errors.name"
             class="feeadback__error">Поле нельзя оставить пустым.</span>
         </label>
         <label class="feedback__label">
           Телефон
           <input
-            ref="field"
-            v-model="feedbackData.tel"
-            class="feeadback__input"
             type="text"
             name="tel"
-            placeholder="+7">
+            placeholder="+7"
+            class="feeadback__input"
+          >
           <span
-            v-if="errors.tel"
-            class="feeadback__error">Номер телефона должен состоять из 11 цифр.</span>
+            class="feeadback__error"
+          >Номер телефона должен состоять из 11 цифр.</span>
         </label>
         <label class="feedback__label">
           E-mail
           <input
-            v-model="feedbackData.email"
             class="feeadback__input"
             type="text"
             name="email"
-            placeholder="ivanov@gmail.com">
+            placeholder="ivanov@gmail.com"
+          >
           <span
-            v-if="errors.email"
             class="feeadback__error">Некорректный email.</span>
         </label>
-        <div class="feedback__label feedback__label--pb">
-          Цель обращения
-          <v-select
+        <div class="feedback__label feedback__label--pb">Цель обращения
+          <!-- <v-select
             v-model="feedbackData.target"
             :options="options"
             placeholder="Выбрать"
-            class="custom-select"/>
+          class="custom-select"/>-->
           <span
-            v-if="errors.target"
-            class="feeadback__error">Выберите цель обращения.</span>
+            class="feeadback__error"
+          >Выберите цель обращения.</span>
         </div>
       </div>
       <div class="feedback__column">
         <label class="feedback__label feedback__label--mb0">
           Сообщение
           <textarea
-            v-model="feedbackData.message"
             class="feedback__textarea"
             name="message"
-            placeholder="Текст сообщения"/>
+            placeholder="Текст сообщения"
+          />
           <span
-            v-if="errors.message"
-            class="feeadback__error">Вы не ввели текст.</span>
+            class="feeadback__error"
+          >Вы не ввели текст.</span>
         </label>
         <div>
           <div class="custom-dropzone">
-            <vue2Dropzone
+            <!-- <vue2Dropzone
               id="dropzone"
               ref="myVueDropzone"
               :options="dropzoneOptions"
-              @:vdropzone-sending="sendingEvent"/>
+            @:vdropzone-sending="sendingEvent"/>-->
           </div>
-
         </div>
         <div class="btn-wrapper">
           <button
             class="feedback__submit"
             type="submit"
-            @click.prevent="submitForm">Отправить</button>
+          >Отправить</button>
           <span
-            v-if="errors.success"
-            class="feeadback__success">Форма успешно отправлена.</span>
+            class="feeadback__success"
+          >Форма успешно отправлена.</span>
           <span
-            v-if="errors.error"
-            class="feeadback__submit-error">Не удалось отправить форму.
-          </span>
+            class="feeadback__submit-error"
+          >Не удалось отправить форму.</span>
         </div>
       </div>
     </form>
@@ -97,111 +91,16 @@
 </template>
 
 <script>
-// import Inputmask from "inputmask";
-// import vSelect from "vue-select";
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
-// import vue2Dropzone from "vue2-dropzone";
-
 export default {
-  components: {
-    vSelect,
-    vue2Dropzone
-  },
-  data: function() {
-    return {
-      feedbackData: {
-        name: '',
-        tel: '',
-        email: '',
-        target: '',
-        message: ''
-      },
-      errors: {
-        name: false,
-        tel: false,
-        email: false,
-        target: false,
-        message: false,
-        success: false,
-        error: false
-      },
-      fileLoad: false,
-      options: ['Жалоба', 'Предложение', 'Совет'],
-      dropzoneOptions: {
-        url: 'https://httpbin.org/post',
-        thumbnailWidth: 150,
-        maxFilesize: 3,
-        addRemoveLinks: true,
-        dictRemoveFile: 'Удалить',
-        dictCancelUpload: 'Отменить',
-        autoProcessQueue: false,
-        dictDefaultMessage: 'Нажмите или перетащите для загрузки',
-        dictFileTooBig: 'Файл слишком большой',
-        headers: { Feedback: 'header value' }
-      }
-    }
-  },
-  mounted() {
-    var im = new Inputmask('+7 (999) 999-99-99')
-    im.mask(this.$refs.field)
-  },
-  methods: {
-    validations(datas) {
-      this.errors.name = !datas.name ? true : false
-      this.errors.tel =
-        datas.tel.replace(/[\D]/g, '').length != 11 ? true : false
-      this.errors.email = !datas.email ? true : false
-      this.errors.target = !datas.target ? true : false
-      this.errors.message = !datas.message ? true : false
-    },
-    sendingEvent(file, xhr, formData) {
-      formData.append('name', this.name)
-      formData.append('tel', this.tel)
-      formData.append('email', this.email)
-      formData.append('target', this.target)
-      formData.append('message', this.message)
-    },
-    submitForm: function() {
-      this.validations(this.feedbackData)
+  name: 'Feedback',
 
-      if (
-        !(
-          this.errors.name ||
-          this.errors.tel ||
-          this.errors.email ||
-          this.errors.target ||
-          this.errors.message
-        )
-      ) {
-        this.$refs.myVueDropzone.processQueue()
-        // this.axios
-        //   .post(
-        //     // "http://mosolymp.school-olymp.com/Andrey/form_response.php",
-        //     "https://httpbin.org/post",
-        //     this.feedbackData
-        //   )
-        //   .then(
-        //     response => (
-        //       console.log(response),
-        //       (this.errors.success = true),
-        //       (this.errors.error = false)
-        //     )
-        //   )
-        //   .catch(
-        //     error => (
-        //       console.log(error),
-        //       (this.errors.success = false),
-        //       (this.errors.error = true)
-        //     )
-        //   );
-      }
-    }
+  components: {
+    // VueInputMask
   }
 }
 </script>
 
 <style>
-/* Форма обратной связи */
 .feedback__form {
   display: flex;
   margin: 0 0 135px 0;

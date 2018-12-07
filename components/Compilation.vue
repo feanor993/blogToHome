@@ -3,7 +3,7 @@
     :to="'/compilations/' + code"
     class="compil__item">
     <img  
-      v-lazy="img"
+      :src="img"
       :alt="altText"
       class="compil__cover">
     <div class="compil__container">

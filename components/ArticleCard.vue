@@ -1,17 +1,17 @@
 <template>
-  <router-link 
+  <nuxt-link 
     :to="code" 
     :class="getType">
     <img
-      v-lazy="coverBig"
+      :src="coverBig"
       :alt="altText"
       class="article__cover article__cover--big">
     <img
-      v-lazy="coverRegular"
+      :src="coverRegular"
       :alt="altText"
       class="article__cover article__cover--regular">
     <img 
-      v-lazy="coverMedium"
+      :src="coverMedium"
       :alt="altText"
       class="article__cover article__cover--medium">
     <div class="article__content">
@@ -34,7 +34,7 @@
           v-text="views"/>
       </div>
     </div>
-  </router-link>
+  </nuxt-link>
 </template>
 
 <script>

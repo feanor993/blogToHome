@@ -20,7 +20,7 @@
 import DateChecker from '~/components/DateChecker.vue'
 
 export default {
-  name: 'News',
+  name: 'NewsItem',
 
   components: {
     DateChecker

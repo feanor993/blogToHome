@@ -5,25 +5,15 @@
     </div>
     <section class="section">
       <div class="news__list--full">
-        <News
-          v-for="news in news"
-          :key="news.code"
-          :href="news.code"
-          :title="news.title"
-          :date="news.date"
-          :views="news.views"
+        <NewsItem
+          v-for="item in loadNewsFromStore"
+          :key="item.code"
+          :href="item.code"
+          :title="item.title"
+          :date="item.date"
+          :views="item.views"
           class="news__item--full-page"
         />
-
-        <!-- <ShowMore class="show-more--news" :showValue="showValue"/> -->
-        <!-- <ShowMore v-if="watchToggleBtn" @showMoreItem="showMore" class="show-more--news"/>
-
-        <div 
-          class="news__end-block"
-          v-else
-        >
-          Пока что это все.
-        </div>-->
       </div>
       <Info/>
     </section>
@@ -31,46 +21,26 @@
 </template>
 
 <script>
-import News from '~/components/News.vue'
-// import ShowMore from "@/components/ShowMore.vue";
+import NewsItem from '~/components/NewsItem.vue'
 import Info from '~/components/Info.vue'
-// import { mapState } from 'vuex'
 
 export default {
+  name: 'News',
+
   components: {
-    News,
-    // ShowMore,
+    NewsItem,
     Info
   },
 
-  data() {
-    return {
-      showValue: 10
-    }
-  },
-
   computed: {
-    // ...mapState(['NewsList'])
-    news() {
-      return this.$store.state.NewsList.slice(0, this.showValue)
+    loadNewsFromStore() {
+      return this.$store.state.NewsList
     }
-    // watchToggleBtn() {
-    //   return this.toggleBtn();
-    // }
   },
 
   mounted() {
     this.$store.dispatch('loadNews')
   }
-
-  // methods: {
-  // showMore() {
-  //   this.showValue += 10;
-  // },
-  // toggleBtn() {
-  //   return this.showValue >= this.$store.state.NewsList.length ? false : true;
-  // }
-  // }
 }
 </script>
 
@@ -104,7 +74,7 @@ export default {
   transform: translateY(-50%);
   width: 29px;
   height: 19px;
-  background: url('~/assets/img/ribbons.svg') no-repeat;
+  background: url('~assets/img/ribbons.svg') no-repeat;
 }
 .news__title {
   transition: 0.3s ease-out;

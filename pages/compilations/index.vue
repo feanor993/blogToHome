@@ -16,9 +16,6 @@
         />
       </div>
 
-      <!-- <ShowMore @showMoreItem="showMore" v-if="watchBtn" class="show-more--mt40 show-more--compil"/>
-      <div v-else class="compilations__end-block">Это все подборки...</div> -->
-
     </main>
 
   </div>
@@ -26,42 +23,23 @@
 
 <script>
 import Compilation from '~/components/Compilation.vue'
-// import ShowMore from "@/components/ShowMore.vue";
 
 export default {
+  name: 'Compilations',
+
   components: {
     Compilation
-    // ShowMore
-  },
-
-  data: function() {
-    return {
-      // showValue: 6
-    }
   },
 
   computed: {
     compilationsSlice() {
-      // return this.$store.state.CompilationsList.slice(0, this.showValue);
       return this.$store.state.CompilationsList
     }
-    // watchBtn() {
-    //   return this.toggleBtn();
-    // }
   },
 
   mounted() {
     this.$store.dispatch('loadCompilations')
   }
-
-  // methods: {
-  //   showMore() {
-  //     this.showValue += 6;
-  //   },
-  //   toggleBtn() {
-  //     return this.showValue >= this.$store.state.CompilationsList.length ? false : true;
-  //   }
-  // }
 }
 </script>
 

@@ -13,18 +13,6 @@
               type="button">Найти</button>
           </div>
           <div class="sort-by">
-            <v-select
-              :options="category"
-              placeholder="Во всех разделах"
-              class="search-select"/>
-            <v-select
-              :options="subject"
-              placeholder="По всем предметам"
-              class="search-select"/>
-            <v-select
-              :options="tags"
-              placeholder="Теги по теме"
-              class="search-select"/>
             <!-- <div class="sort-by__stroke sort-by__result">45 результатов</div> -->
             <a
               class="sort-by__stroke"
@@ -45,9 +33,10 @@
 import Info from '~/components/Info.vue'
 
 export default {
+  name: 'Search',
+
   components: {
-    Info,
-    vSelect
+    Info
   },
 
   computed: {

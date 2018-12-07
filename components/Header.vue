@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <Koala/>
-    <router-link 
+    <nuxt-link 
       to="/" 
       class="main-logo">
       <img 
@@ -9,14 +9,14 @@
         src="~/assets/img/logo.svg" 
         alt="Главный логотип сайта">
       <p class="main-logo__title">Журнал для школьников про ЕГЭ и Олимпиады</p>
-    </router-link>
+    </nuxt-link>
     <div class="reference">
       <nav class="reference__menu">
         <ul class="reference__list">
           <li class="reference__item">
-            <router-link 
+            <nuxt-link 
               to="/about" 
-              class="reference__link">О проекте</router-link>
+              class="reference__link">О проекте</nuxt-link>
           </li>
 
           <li 
