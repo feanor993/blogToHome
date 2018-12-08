@@ -20,7 +20,7 @@
           </li>
 
           <li 
-            v-for="ref in reference" 
+            v-for="ref in $store.state.NuxtServerInit.menu.reference" 
             :key="ref.href"
             class="reference__item">
             <a
@@ -47,25 +47,6 @@ export default {
 
   components: {
     Koala
-  },
-
-  data() {
-    return {
-      reference: []
-    }
-  },
-
-  mounted() {
-    this.getRef()
-  },
-
-  methods: {
-    async getRef() {
-      const ip = await this.$axios.$get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/Reference.php'
-      )
-      this.reference = ip
-    }
   }
 }
 </script>

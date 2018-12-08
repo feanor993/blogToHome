@@ -8,10 +8,7 @@
         <NewsItem
           v-for="item in news"
           :key="item.code"
-          :href="item.code"
-          :title="item.title"
-          :date="item.date"
-          :views="item.views"
+          :news="item"
           class="news__item--full-page"
         />
       </div>

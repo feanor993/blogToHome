@@ -236,10 +236,12 @@ template {
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
 * {
   box-sizing: border-box;
   color: #191919;
 }
+
 *:focus {
   outline-color: #d5001a;
   outline-width: 2px;
@@ -254,18 +256,22 @@ a {
   transition: 0.3s ease-out;
   padding: 0 0 1px 0;
 }
+
 .link:hover {
   color: #d5001a;
   box-shadow: 0 0.7px 0 rgba(213, 0, 26, 1);
 }
+
 .link--red {
   color: #ef1832;
   box-shadow: 0 0.7px 0 rgba(239, 24, 50, 0.6);
 }
+
 .link--lava {
   font-family: 'LavaPro-Med';
   padding: 0;
 }
+
 .link--black {
   box-shadow: 0 0.7px 0 #191919;
 }
@@ -273,30 +279,39 @@ a {
 h1 {
   font: 700 30px/1.4 'Montserrat';
 }
+
 h2 {
   font: 700 24px/1.4 'Montserrat';
 }
+
 h3 {
   font: 600 22px/1.4 'Montserrat';
 }
+
 h4 {
   font: 600 16px/1.5 'Montserrat';
 }
+
 h5 {
   font: 600 17px/1.4 'Montserrat';
 }
+
 p {
   font: 400 20px/1.5 'Montserrat';
 }
+
 ::-webkit-input-placeholder {
   color: #c2c2c3;
 }
+
 ::-moz-placeholder {
   color: #c2c2c3;
 }
+
 :-ms-input-placeholder {
   color: #c2c2c3;
 }
+
 :-moz-placeholder {
   color: #c2c2c3;
 }
@@ -308,9 +323,11 @@ p {
   width: 100%;
   margin: 0 auto;
 }
+
 .main--long {
   max-width: 1200px;
 }
+
 .main--mt-30 {
   margin-top: 30px;
 }
@@ -321,12 +338,15 @@ p {
   justify-content: space-between;
   width: 100%;
 }
+
 .section--column {
   flex-direction: column;
 }
+
 .section__heading--articles {
   margin: 20px 0 30px 0;
 }
+
 .nav--header .menu__item:first-child {
   display: none;
 }

@@ -3,15 +3,10 @@
     <main class="main main--long">
       <h1 class="compil__heading">Подборки</h1>
       <div class="article__container compil__list">
-
         <Compilation
           v-for="compilation in compilationsSlice"
           :key="compilation.id"
-          :code="compilation.code"
-          :img="compilation.img"
-          :title="compilation.title"
-          :description="compilation.description"
-          :alt-text="compilation.altText"
+          :compilation="compilation"
           class="compil__item--mb80"
         />
       </div>
@@ -27,6 +22,10 @@ import Compilation from '~/components/Compilation.vue'
 export default {
   name: 'Compilations',
 
+  components: {
+    Compilation
+  },
+
   async asyncData({ store }) {
     await store.dispatch('updateCompilations')
     return {
@@ -34,13 +33,9 @@ export default {
     }
   },
 
-  components: {
-    Compilation
-  },
-
   computed: {
     compilationsSlice() {
-      return this.compilations.slice(0, 2)
+      return this.compilations
     }
   }
 }

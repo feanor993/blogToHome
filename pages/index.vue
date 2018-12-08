@@ -5,18 +5,8 @@
         <div class="popular">
           <ArticleCard
             v-for="article in popular"
-            :type="article.type"
             :key="article.code"
-            :code="article.code"
-            :cover-big="article.coverBig"
-            :cover-regular="article.coverRegular"
-            :cover-medium="article.coverMedium"
-            :category="article.category"
-            :subject="article.subject"
-            :title="article.title"
-            :date="article.date"
-            :views="article.views"
-            :alt-text="article.altText"
+            :article="article"
           />
           <h3 class="popular__heading">Популярное</h3>
         </div>
@@ -27,10 +17,7 @@
             <NewsItem
               v-for="news in newsSlice"
               :key="news.code"
-              :href="news.code"
-              :title="news.title"
-              :date="news.date"
-              :views="news.views"
+              :news="news"
             />
           </div>
           <nuxt-link
@@ -45,18 +32,8 @@
         <div class="article__container">
           <ArticleCard
             v-for="article in articles"
-            :type="article.type"
             :key="article.code"
-            :code="article.code"
-            :cover-big="article.coverBig"
-            :cover-regular="article.coverRegular"
-            :cover-medium="article.coverMedium"
-            :category="article.category"
-            :subject="article.subject"
-            :title="article.title"
-            :date="article.date"
-            :views="article.views"
-            :alt-text="article.altText"
+            :article="article"
           />
         </div>
       </section>
@@ -75,11 +52,7 @@
           <Compilation
             v-for="compilation in threeCompilations"
             :key="compilation.id"
-            :code="compilation.code"
-            :img="compilation.img"
-            :title="compilation.title"
-            :description="compilation.description"
-            :alt-text="compilation.altText"
+            :compilation="compilation"
             class="compil__item--mb80"
           />
         </div>

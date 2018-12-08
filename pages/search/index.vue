@@ -13,7 +13,6 @@
               type="button">Найти</button>
           </div>
           <div class="sort-by">
-            <!-- <div class="sort-by__stroke sort-by__result">45 результатов</div> -->
             <a
               class="sort-by__stroke"
               href="#">по дате</a>
@@ -37,46 +36,6 @@ export default {
 
   components: {
     Info
-  },
-
-  computed: {
-    category() {
-      return this._.uniq(
-        this._.reduce(
-          this.$store.state.ArticleCardList,
-          (res, item) => {
-            return res.concat(item.category)
-          },
-          []
-        )
-      )
-    },
-    subject() {
-      return this._.uniq(
-        this._.reduce(
-          this.$store.state.ArticleCardList,
-          (res, item) => {
-            return res.concat(item.subject)
-          },
-          []
-        )
-      )
-    },
-    tags() {
-      return this._.uniq(
-        this._.reduce(
-          this.$store.state.ArticleCardList,
-          (res, item) => {
-            return res.concat(item.tags)
-          },
-          []
-        )
-      )
-    }
-  },
-
-  mounted() {
-    this.$store.dispatch('loadPosts')
   }
 }
 </script>

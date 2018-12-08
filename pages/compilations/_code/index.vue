@@ -1,33 +1,24 @@
 <template>
   <div class="main">
     <div class="compil-banner">
-      <!-- <img
-        :src="compilation.innerImage"
+      <img
+        :src="getCurrent.innerImage"
         class="compil-banner__cover"
-        alt="Обложка подборки"> -->
+        alt="Обложка подборки">
       <div class="compil-banner__content">
-        <!-- <h1
+        <h1
           class="compil-banner__heading"
-          v-text="compilation.innerTitle"/>
+          v-text="getCurrent.innerTitle"/>
         <p
           class="compil-banner__text"
-          v-text="compilation.innerSubtitle"/> -->
+          v-text="getCurrent.innerSubtitle"/>
       </div>
     </div>
     <div class="article__container compil__item-page">
       <ArticleCard
-        v-for="article in articles"
+        v-for="article in getArticles"
         :key="article.code"
-        :code="article.code"
-        :cover-big="article.coverBig"
-        :cover-regular="article.coverRegular"
-        :cover-medium="article.coverMedium"
-        :category="article.category"
-        :subject="article.subject"
-        :title="article.title"
-        :date="article.date"
-        :views="article.views"
-        :alt-text="article.altText"
+        :article="article"
       />
     </div>
   </div>
@@ -43,28 +34,28 @@ export default {
     ArticleCard
   },
 
-  computed: {
-    compilation() {
-      return this._.find(this.$store.state.CompilationsList, [
-        'code',
-        this.$route.params.code
-      ])
+  async asyncData({ store }) {
+    await store.dispatch('updateCompilations')
+    await store.dispatch('updateArticles')
+    return {
+      compilations: store.getters.compilations,
+      articles: store.getters.articles
     }
-    // articles() {
-    //   return this._.reduce(
-    //     this.compilation.innerArticles,
-    //     (res, elem) => {
-    //       return res.concat(
-    //         this._.find(this.$store.state.ArticleCardList, ['code', elem])
-    //       )
-    //     },
-    //     []
-    //   )
-    // }
   },
 
-  mounted() {
-    this.$store.dispatch('loadPosts')
+  computed: {
+    getCurrent() {
+      return this._.find(this.compilations, ['code', this.$route.params.code])
+    },
+    getArticles() {
+      return this._.reduce(
+        this.getCurrent.innerArticles,
+        (res, item) => {
+          return res.concat(this._.find(this.articles, ['code', item]))
+        },
+        []
+      )
+    }
   }
 }
 </script>

@@ -4,14 +4,14 @@
     class="news__item">
     <h4
       class="news__title"
-      v-text="title"/>
+      v-text="news.title"/>
     <div class="news__info">
       <DateChecker 
-        :date="date"
+        :date="news.date"
         class="news__date"/>
       <div 
         class="news__views"
-        v-text="views"/>
+        v-text="news.views"/>
     </div>
   </nuxt-link>
 </template>
@@ -27,21 +27,11 @@ export default {
   },
 
   props: {
-    href: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    date: {
-      type: String,
-      default: ''
-    },
-    views: {
-      type: String,
-      default: ''
+    news: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   }
 }

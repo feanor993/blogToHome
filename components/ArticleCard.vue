@@ -1,37 +1,37 @@
 <template>
   <nuxt-link 
-    :to="code" 
+    :to="article.code" 
     :class="getType">
     <img
-      :src="coverBig"
-      :alt="altText"
+      :src="article.coverBig"
+      :alt="article.altText"
       class="article__cover article__cover--big">
     <img
-      :src="coverRegular"
-      :alt="altText"
+      :src="article.coverRegular"
+      :alt="article.altText"
       class="article__cover article__cover--regular">
     <img 
-      :src="coverMedium"
-      :alt="altText"
+      :src="article.coverMedium"
+      :alt="article.altText"
       class="article__cover article__cover--medium">
     <div class="article__content">
       <div class="tag__container">
         <p
           class="article__tag" 
-          v-text="category"/>
+          v-text="article.category"/>
         <p 
-          v-show="subject" 
+          v-show="article.subject" 
           class="article__tag article__tag--black" 
-          v-text="subject"/>
+          v-text="article.subject"/>
       </div>
       <h2 
         class="article__title" 
-        v-text="title"/>
+        v-text="article.title"/>
       <div class="article__info">
-        <DateChecker :date="date"/>
+        <DateChecker :date="article.date"/>
         <div 
           class="article__views" 
-          v-text="views"/>
+          v-text="article.views"/>
       </div>
     </div>
   </nuxt-link>
@@ -48,49 +48,11 @@ export default {
   },
 
   props: {
-    type: {
-      type: String,
-      default: 'regular'
-    },
-    code: {
-      type: String,
-      default: ''
-    },
-    coverBig: {
-      type: String,
-      default: ''
-    },
-    coverRegular: {
-      type: String,
-      default: ''
-    },
-    coverMedium: {
-      type: String,
-      default: ''
-    },
-    category: {
-      type: String,
-      default: ''
-    },
-    subject: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    date: {
-      type: String,
-      default: ''
-    },
-    views: {
-      type: String,
-      default: ''
-    },
-    altText: {
-      type: String,
-      default: 'Обложка статьи'
+    article: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
 

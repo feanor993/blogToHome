@@ -159,72 +159,87 @@ export default {
 </script>
 
 <style>
-/* Страница о нас */
 .about__section--top {
   margin: 60px 0 50px 0;
 }
+
 .promo__title--center {
   text-align: center;
   margin: 0 auto;
 }
+
 .promo__title--medium {
   font: 700 28px/1.4 'Montserrat';
 }
+
 .promo__title--top {
   margin: 0 auto 35px auto;
 }
+
 .promo__title--mb-60 {
   margin-bottom: 60px;
   font-size: 28px;
 }
+
 .promo__text {
   font: 500 20px/1.6 'Montserrat';
   margin: 0 0 50px 0;
 }
+
 .promo__title--small {
   font-size: 20px;
   font-weight: 700;
 }
+
 .promo__text--small {
   font: 500 16px/1.6 'Montserrat';
   margin: 20px 0 0 0;
 }
+
 .promo__text--medium {
   font: 500 20px/1.6 'Montserrat';
   margin: 20px 0 0 0;
 }
+
 .promo__text--top {
   width: 765px;
   margin: 0 auto 50px auto;
 }
+
 .promo__container {
   display: flex;
   justify-content: center;
   width: 100%;
 }
+
 .promo__block {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 350px;
 }
+
 .promo__block--big {
   width: 100%;
   padding: 0 50px 0 0;
 }
+
 .promo__block:nth-child(2) {
   margin: 0 70px;
 }
+
 .promo__image {
   max-width: 605px;
   width: 100%;
   border-radius: 4px;
 }
+
 .promo__section--skew {
   position: relative;
   padding: 150px 0;
   margin: 150px 0;
 }
+
 .promo__section--skew:before {
   content: '';
   position: absolute;
@@ -237,14 +252,17 @@ export default {
   background: rgba(246, 246, 246, 0.6);
   transform: rotate(-10deg) skew(-10deg) translate(-15px);
 }
+
 .promo__main {
   position: relative;
   z-index: 1;
 }
+
 .promo__trapez {
   position: relative;
   margin: 100px auto 115px;
 }
+
 .promo__trapez--text {
   position: absolute;
   top: 50%;
@@ -254,6 +272,7 @@ export default {
   width: 650px;
   font: 600 24px/1.4 'Montserrat';
 }
+
 .promo__icon {
   margin: 0 0 25px 0;
 }

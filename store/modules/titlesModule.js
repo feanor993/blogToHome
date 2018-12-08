@@ -1,0 +1,26 @@
+export default {
+  state: () => ({
+    titles: {}
+  }),
+
+  getters: {
+    titles(state) {
+      return state.titles
+    }
+  },
+
+  actions: {
+    async updateTitles(context) {
+      const req = await this.$axios.get(
+        'http://mosolymp.school-olymp.com/Andrey/blog/Titles.php'
+      )
+      context.commit('GET_TITLES', req.data)
+    }
+  },
+
+  mutations: {
+    GET_TITLES(state, titles) {
+      state.titles = titles
+    }
+  }
+}

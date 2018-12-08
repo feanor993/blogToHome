@@ -1,18 +1,18 @@
 <template>
   <nuxt-link 
-    :to="'/compilations/' + code"
+    :to="'/compilations/' + compilation.code"
     class="compil__item">
     <img  
-      :src="img"
-      :alt="altText"
+      :src="compilation.img"
+      :alt="compilation.altText"
       class="compil__cover">
     <div class="compil__container">
       <h2 
         class="compil__title" 
-        v-text="title"/>
+        v-text="compilation.title"/>
       <p 
         class="compil__caption" 
-        v-text="description"/>
+        v-text="compilation.description"/>
     </div>
   </nuxt-link>
 </template>
@@ -22,25 +22,11 @@ export default {
   name: 'Compilation',
 
   props: {
-    code: {
-      type: String,
-      default: ''
-    },
-    img: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    description: {
-      type: String,
-      default: ''
-    },
-    altText: {
-      type: String,
-      default: 'Обложка подборки'
+    compilation: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   }
 }

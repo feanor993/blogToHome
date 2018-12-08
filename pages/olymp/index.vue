@@ -43,18 +43,8 @@
 
           <ArticleCard
             v-for="article in articles"
-            :type="article.type"
             :key="article.code"
-            :code="article.code"
-            :cover-big="article.coverBig"
-            :cover-regular="article.coverRegular"
-            :cover-medium="article.coverMedium"
-            :category="article.category"
-            :subject="article.subject"
-            :title="article.title"
-            :date="article.date"
-            :views="article.views"
-            :alt-text="article.altText"
+            :article="article"
           />
 
         </div>

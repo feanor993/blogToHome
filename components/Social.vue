@@ -1,7 +1,7 @@
 <template>
   <div class="social">
     <a 
-      v-for="soc in socials"
+      v-for="soc in $store.state.NuxtServerInit.social"
       :key="soc.id"
       :href="soc.url"
       target="_blank"
@@ -16,26 +16,7 @@
 
 <script>
 export default {
-  name: 'Social',
-
-  data() {
-    return {
-      socials: []
-    }
-  },
-
-  mounted() {
-    this.fetchSocial()
-  },
-
-  methods: {
-    async fetchSocial() {
-      const ip = await this.$axios.$get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/Social.php'
-      )
-      this.socials = ip
-    }
-  }
+  name: 'Social'
 }
 </script>
 

@@ -2,7 +2,7 @@
   <nav class="menu">
     <ul class="menu__list">
       <li 
-        v-for="item in menu" 
+        v-for="item in $store.state.NuxtServerInit.menu.main" 
         :key="item.href"
         class="menu__item">
         <nuxt-link 
@@ -16,26 +16,7 @@
 
 <script>
 export default {
-  name: 'MyNav',
-
-  data() {
-    return {
-      menu: []
-    }
-  },
-
-  mounted() {
-    this.fetchMenu()
-  },
-
-  methods: {
-    async fetchMenu() {
-      const ip = await this.$axios.$get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/Menu.php'
-      )
-      this.menu = ip
-    }
-  }
+  name: 'MyNav'
 }
 </script>
 
