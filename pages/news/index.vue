@@ -6,7 +6,7 @@
     <section class="section">
       <div class="news__list--full">
         <NewsItem
-          v-for="item in loadNewsFromStore"
+          v-for="item in news"
           :key="item.code"
           :href="item.code"
           :title="item.title"
@@ -32,14 +32,11 @@ export default {
     Info
   },
 
-  computed: {
-    loadNewsFromStore() {
-      return this.$store.state.NewsList
+  async asyncData({ store }) {
+    await store.dispatch('updateNews')
+    return {
+      news: store.getters.news
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('loadNews')
   }
 }
 </script>

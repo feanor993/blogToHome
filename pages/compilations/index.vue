@@ -27,18 +27,21 @@ import Compilation from '~/components/Compilation.vue'
 export default {
   name: 'Compilations',
 
+  async asyncData({ store }) {
+    await store.dispatch('updateCompilations')
+    return {
+      compilations: store.getters.compilations
+    }
+  },
+
   components: {
     Compilation
   },
 
   computed: {
     compilationsSlice() {
-      return this.$store.state.CompilationsList
+      return this.compilations.slice(0, 2)
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('loadCompilations')
   }
 }
 </script>

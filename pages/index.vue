@@ -44,7 +44,7 @@
 
         <div class="article__container">
           <ArticleCard
-            v-for="article in this.$store.state.ArticleCardList"
+            v-for="article in articles"
             :type="article.type"
             :key="article.code"
             :code="article.code"
@@ -96,6 +96,17 @@ import Compilation from '~/components/Compilation.vue'
 export default {
   name: 'Index',
 
+  async asyncData({ store }) {
+    await store.dispatch('updateArticles')
+    await store.dispatch('updateNews')
+    await store.dispatch('updateCompilations')
+    return {
+      articles: store.getters.articles,
+      news: store.getters.news,
+      compilations: store.getters.compilations
+    }
+  },
+
   components: {
     ArticleCard,
     NewsItem,
@@ -104,22 +115,14 @@ export default {
 
   computed: {
     newsSlice() {
-      return this.$store.state.NewsList.slice(0, 7)
+      return this.news.slice(0, 7)
     },
-
     popular() {
-      return this._.filter(this.$store.state.ArticleCardList, { popular: true })
+      return this._.filter(this.articles, { popular: true })
     },
-
     threeCompilations() {
-      return this.$store.state.CompilationsList.slice(0, 3)
+      return this.compilations.slice(0, 3)
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('loadNews')
-    this.$store.dispatch('loadPosts')
-    this.$store.dispatch('loadCompilations')
   }
 }
 </script>

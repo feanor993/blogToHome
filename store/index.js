@@ -2,50 +2,64 @@ import Vuex from 'vuex'
 
 const createStore = () => {
   return new Vuex.Store({
-    state: () => ({
-      ArticleCardList: [],
-      NewsList: [],
-      Titles: {},
-      CompilationsList: []
-    }),
+    state: {
+      articles: [],
+      news: [],
+      compilations: [],
+      titles: {}
+    },
+    getters: {
+      articles(state) {
+        return state.articles
+      },
+      news(state) {
+        return state.news
+      },
+      compilations(state) {
+        return state.compilations
+      },
+      titles(state) {
+        return state.titles
+      }
+    },
     actions: {
-      async loadPosts({ commit }) {
-        const ip = await this.$axios.$get(
+      async updateArticles(context) {
+        const req = await this.$axios.get(
           'http://mosolymp.school-olymp.com/Andrey/blog/ArticleCard.php'
         )
-        commit('UPGRADE_ARTICLE', ip)
+        context.commit('GET_ARTICLES', req.data)
       },
-      async loadNews({ commit }) {
-        const ip = await this.$axios.$get(
+      async updateNews(context) {
+        const req = await this.$axios.get(
           'http://mosolymp.school-olymp.com/Andrey/blog/News.php'
         )
-        commit('UPGRADE_NEWS', ip)
+        context.commit('GET_NEWS', req.data)
       },
-      async loadTitles({ commit }) {
-        const ip = await this.$axios.$get(
-          'http://mosolymp.school-olymp.com/Andrey/blog/Titles.php'
-        )
-        commit('UPDATE_TITLES', ip)
-      },
-      async loadCompilations({ commit }) {
-        const ip = await this.$axios.$get(
+      async updateCompilations(context) {
+        const req = await this.$axios.get(
           'http://mosolymp.school-olymp.com/Andrey/blog/Compilations.php'
         )
-        commit('UPDATE_COMPILATIONS', ip)
+        context.commit('GET_COMPILATIONS', req.data)
+      },
+      async updateTitles(context) {
+        const req = await this.$axios.get(
+          'http://mosolymp.school-olymp.com/Andrey/blog/Titles.php'
+        )
+        context.commit('GET_TITLES', req.data)
       }
     },
     mutations: {
-      UPGRADE_ARTICLE(state, content) {
-        state.ArticleCardList = content
+      GET_ARTICLES(state, articles) {
+        state.articles = articles
       },
-      UPGRADE_NEWS(state, content) {
-        state.NewsList = content
+      GET_NEWS(state, news) {
+        state.news = news
       },
-      UPDATE_TITLES(state, content) {
-        state.Titles = content
+      GET_COMPILATIONS(state, compilations) {
+        state.compilations = compilations
       },
-      UPDATE_COMPILATIONS(state, content) {
-        state.CompilationsList = content
+      GET_TITLES(state, titles) {
+        state.titles = titles
       }
     }
   })

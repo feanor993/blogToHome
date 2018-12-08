@@ -7,13 +7,13 @@
             <div class="toolbar__content">
               <h1
                 class="toolbar__title"
-                v-text="category.title"/>
+                v-text="filteredTitles.title"/>
               <p
                 class="toolbar__subtitle"
-                v-text="category.subtitle"/>
+                v-text="filteredTitles.subtitle"/>
             </div>
             <img
-              :src="category.image"
+              :src="filteredTitles.image"
               alt="Картинка раздела">
           </div>
         </div>
@@ -77,19 +77,30 @@ export default {
     Subject
   },
 
+  async asyncData({ store }) {
+    await store.dispatch('updateArticles')
+    await store.dispatch('updateTitles')
+    return {
+      articles: store.getters.articles,
+      titles: store.getters.titles
+    }
+  },
+
   computed: {
-    category() {
-      return this._.find(this.$store.state.Titles, ['id', this.$route.name])
+    filteredTitles() {
+      return this._.find(this.titles, {
+        id: 'olymp'
+      })
     },
-    articles() {
-      return this._.filter(this.$store.state.ArticleCardList, {
-        category: this.category.title
+    filteredArticles() {
+      return this._.filter(this.articles, {
+        category: 'olymp'
       })
     },
     tags() {
       return this._.uniq(
         this._.reduce(
-          this.articles,
+          this.filteredArticles,
           (res, item) => {
             return res.concat(item.tags)
           },
@@ -100,7 +111,7 @@ export default {
     subjects() {
       return this._.uniq(
         this._.reduce(
-          this.articles,
+          this.filteredArticles,
           (res, item) => {
             return res.concat(item.subject)
           },
@@ -108,11 +119,6 @@ export default {
         )
       )
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('loadTitles')
-    this.$store.dispatch('loadPosts')
   }
 }
 </script>
@@ -124,20 +130,23 @@ export default {
   width: 100%;
   padding: 0 140px 0 130px;
 }
+
 .toolbar__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 30px 0 60px 0;
 }
+
 .toolbar__content {
   width: 520px;
 }
+
 .toolbar__subtitle {
   font: 500 18px/1.6 'Montserrat';
   margin: 15px 0 0 0;
 }
-/* Список тегов на страницах одимпиады, лайфхаки */
+
 .tags__list {
   display: flex;
   flex-wrap: wrap;
@@ -145,12 +154,14 @@ export default {
   width: 830px;
   overflow: hidden;
 }
+
 .tags__container {
   align-items: flex-end;
   justify-content: space-between;
   display: flex;
   margin: 0 0 25px 0;
 }
+
 .tags__add-more {
   opacity: 0.6;
   letter-spacing: 1.4px;
@@ -161,9 +172,11 @@ export default {
   cursor: pointer;
   transition: 0.3s ease-out;
 }
+
 .tags__add-more:hover {
   opacity: 1;
 }
+
 .compilations__end-block {
   display: flex;
   justify-content: center;
@@ -171,6 +184,7 @@ export default {
   margin: 50px 0 60px 0;
   color: #a3a4a6;
 }
+
 .subject__list {
   display: flex;
 }
