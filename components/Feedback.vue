@@ -21,9 +21,10 @@
         <label class="feedback__label">
           Телефон
           <input
+            v-mask="{mask: '+7 (999) 999 99 99', greedy: true}"
             type="text"
-            name="tel"
             placeholder="+7"
+            name="tel"
             class="feeadback__input"
           >
           <span
@@ -42,11 +43,10 @@
             class="feeadback__error">Некорректный email.</span>
         </label>
         <div class="feedback__label feedback__label--pb">Цель обращения
-          <!-- <v-select
-            v-model="feedbackData.target"
-            :options="options"
+          <v-select
+            :options="['asdf', 'asdf']"
             placeholder="Выбрать"
-          class="custom-select"/>-->
+            class="custom-select"/>
           <span
             class="feeadback__error"
           >Выберите цель обращения.</span>
@@ -66,11 +66,11 @@
         </label>
         <div>
           <div class="custom-dropzone">
-            <!-- <vue2Dropzone
+            <dropzone
               id="dropzone"
-              ref="myVueDropzone"
-              :options="dropzoneOptions"
-            @:vdropzone-sending="sendingEvent"/>-->
+              ref="dropzone"
+              :options="options"
+              :destroy-dropzone="true"/>
           </div>
         </div>
         <div class="btn-wrapper">
@@ -91,11 +91,17 @@
 </template>
 
 <script>
+import 'nuxt-dropzone/dropzone.css'
+
 export default {
   name: 'Feedback',
 
-  components: {
-    // VueInputMask
+  data() {
+    return {
+      options: {
+        url: 'http://httpbin.org/post'
+      }
+    }
   }
 }
 </script>

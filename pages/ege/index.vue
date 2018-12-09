@@ -84,7 +84,7 @@ export default {
     },
     filteredArticles() {
       return this._.filter(this.articles, {
-        category: 'ege'
+        category: 'ЕГЭ'
       })
     },
     tags() {

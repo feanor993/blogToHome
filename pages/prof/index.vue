@@ -84,7 +84,7 @@ export default {
     },
     filteredArticles() {
       return this._.filter(this.articles, {
-        category: 'prof'
+        category: 'Профориентация'
       })
     },
     tags() {

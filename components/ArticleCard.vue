@@ -60,9 +60,9 @@ export default {
     getType() {
       return (
         'article ' +
-        (this.type === 'regular'
+        (this.article.type === 'regular'
           ? 'article--regular'
-          : this.type === 'medium'
+          : this.article.type === 'medium'
             ? 'article--medium'
             : 'article--big')
       )

@@ -29,7 +29,13 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-lodash', '~/plugins/vue-lazyload'],
+  plugins: [
+    '~/plugins/vue-lodash',
+    '~/plugins/vue-lazyload',
+    { src: '~/plugins/vue-inputmask', ssr: false },
+    { src: '~/plugins/vue-select', ssr: false },
+    '~/plugins/vue-dropzone'
+  ],
 
   /*
   ** Nuxt.js modules
