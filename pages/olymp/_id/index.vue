@@ -6,6 +6,18 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Статья олимпиады',
+      meta: [
+        {
+          name: 'description',
+          content: 'Статья олимпиады'
+        }
+      ]
+    }
+  },
+
   name: 'Article'
 }
 </script>

@@ -32,6 +32,18 @@
 import Info from '~/components/Info.vue'
 
 export default {
+  head() {
+    return {
+      title: 'Поиск',
+      meta: [
+        {
+          name: 'description',
+          content: 'Поиск'
+        }
+      ]
+    }
+  },
+
   name: 'Search',
 
   components: {

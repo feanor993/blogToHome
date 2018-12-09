@@ -91,8 +91,6 @@
 </template>
 
 <script>
-import 'nuxt-dropzone/dropzone.css'
-
 export default {
   name: 'Feedback',
 

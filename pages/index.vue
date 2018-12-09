@@ -67,6 +67,18 @@ import NewsItem from '~/components/NewsItem.vue'
 import Compilation from '~/components/Compilation.vue'
 
 export default {
+  head() {
+    return {
+      title: 'Главная',
+      meta: [
+        {
+          name: 'description',
+          content: 'Главная'
+        }
+      ]
+    }
+  },
+
   name: 'Index',
 
   async asyncData({ store }) {

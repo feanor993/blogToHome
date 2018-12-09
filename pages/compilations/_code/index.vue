@@ -28,6 +28,18 @@
 import ArticleCard from '~/components/ArticleCard.vue'
 
 export default {
+  head() {
+    return {
+      title: 'Сборник',
+      meta: [
+        {
+          name: 'description',
+          content: 'Сборник'
+        }
+      ]
+    }
+  },
+
   name: 'Compilation',
 
   components: {

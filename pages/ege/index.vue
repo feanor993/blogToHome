@@ -59,6 +59,18 @@ import Tag from '~/components/Tag.vue'
 import Subject from '~/components/Subject.vue'
 
 export default {
+  head() {
+    return {
+      title: 'ЕГЭ',
+      meta: [
+        {
+          name: 'description',
+          content: 'ЕГЭ'
+        }
+      ]
+    }
+  },
+
   name: 'Catalog',
 
   components: {

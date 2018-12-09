@@ -150,6 +150,18 @@
 import Feedback from '~/components/Feedback.vue'
 
 export default {
+  head() {
+    return {
+      title: 'О нас',
+      meta: [
+        {
+          name: 'description',
+          content: 'О нас'
+        }
+      ]
+    }
+  },
+
   name: 'About',
 
   components: {

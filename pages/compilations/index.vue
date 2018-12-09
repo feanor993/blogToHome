@@ -20,6 +20,18 @@
 import Compilation from '~/components/Compilation.vue'
 
 export default {
+  head() {
+    return {
+      title: 'Подборки',
+      meta: [
+        {
+          name: 'description',
+          content: 'Подборки'
+        }
+      ]
+    }
+  },
+
   name: 'Compilations',
 
   components: {

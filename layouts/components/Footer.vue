@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import MyNav from '~/components/MyNav.vue'
+import MyNav from '~/layouts/components/MyNav.vue'
 import Koala from '~/components/Koala.vue'
 import Subscribe from '~/components/Subscribe.vue'
 import Social from '~/components/Social.vue'

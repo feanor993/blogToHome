@@ -22,6 +22,18 @@ import NewsItem from '~/components/NewsItem.vue'
 import Info from '~/components/Info.vue'
 
 export default {
+  head() {
+    return {
+      title: 'Новости',
+      meta: [
+        {
+          name: 'description',
+          content: 'Новости'
+        }
+      ]
+    }
+  },
+
   name: 'News',
 
   components: {

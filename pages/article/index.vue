@@ -32,6 +32,18 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Статья',
+      meta: [
+        {
+          name: 'description',
+          content: 'Статья'
+        }
+      ]
+    }
+  },
+
   name: 'Article'
 }
 </script>

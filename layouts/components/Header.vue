@@ -137,4 +137,8 @@ export default {
   align-items: flex-end;
   align-self: flex-start;
 }
+
+.nav--header .menu__item:first-child {
+  display: none;
+}
 </style>

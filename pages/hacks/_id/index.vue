@@ -6,6 +6,18 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Статья лайфхаков',
+      meta: [
+        {
+          name: 'description',
+          content: 'Новости'
+        }
+      ]
+    }
+  },
+
   name: 'Article'
 }
 </script>

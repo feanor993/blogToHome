@@ -1,0 +1,139 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@font-face {
+  font-family: 'LavaPro-Med';
+  src: url('~/assets/fonts/LavaPro-Med/LavaPro-Med.eot');
+  src: url('~/assets/fonts/LavaPro-Med/LavaPro-Med.woff2') format('woff2'),
+    url('~/assets/fonts/LavaPro-Med/LavaPro-Med.woff') format('woff'),
+    url('~/assets/fonts/LavaPro-Med/LavaPro-Med.ttf') format('truetype'),
+    url('~/assets/fonts/LavaPro-Med/LavaPro-Med.svg#LavaPro-Med') format('svg'),
+    url('~/assets/fonts/LavaPro-Med/LavaPro-Med.eot?#iefix')
+      format('embedded-opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LavaPro-Reg';
+  src: url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.eot');
+  src: url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.woff2') format('woff2'),
+    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.woff') format('woff'),
+    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.ttf') format('truetype'),
+    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.svg#LavaPro-Reg') format('svg'),
+    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.eot?#iefix')
+      format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  color: #191919;
+}
+
+*:focus {
+  outline-color: #d5001a;
+  outline-width: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link {
+  text-decoration: none;
+  transition: 0.3s ease-out;
+  padding: 0 0 1px 0;
+}
+
+.link:hover {
+  color: #d5001a;
+  box-shadow: 0 0.7px 0 rgba(213, 0, 26, 1);
+}
+
+.link--red {
+  color: #ef1832;
+  box-shadow: 0 0.7px 0 rgba(239, 24, 50, 0.6);
+}
+
+.link--lava {
+  font-family: 'LavaPro-Med';
+  padding: 0;
+}
+
+.link--black {
+  box-shadow: 0 0.7px 0 #191919;
+}
+
+h1 {
+  font: 700 30px/1.4 'Montserrat';
+}
+
+h2 {
+  font: 700 24px/1.4 'Montserrat';
+}
+
+h3 {
+  font: 600 22px/1.4 'Montserrat';
+}
+
+h4 {
+  font: 600 16px/1.5 'Montserrat';
+}
+
+h5 {
+  font: 600 17px/1.4 'Montserrat';
+}
+
+p {
+  font: 400 20px/1.5 'Montserrat';
+}
+
+::-webkit-input-placeholder {
+  color: #c2c2c3;
+}
+
+::-moz-placeholder {
+  color: #c2c2c3;
+}
+
+:-ms-input-placeholder {
+  color: #c2c2c3;
+}
+
+:-moz-placeholder {
+  color: #c2c2c3;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main--long {
+  max-width: 1200px;
+}
+
+.main--mt-30 {
+  margin-top: 30px;
+}
+
+.section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.section--column {
+  flex-direction: column;
+}
+
+.section__heading--articles {
+  margin: 20px 0 30px 0;
+}
