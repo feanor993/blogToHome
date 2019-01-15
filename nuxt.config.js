@@ -14,28 +14,37 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:500,600,700&subset=cyrillic' }]
+    link: [
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Montserrat:500,600,700&subset=cyrillic'
+      }
+    ]
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#8eca37' },
 
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/main.css', '~/assets/css/normalize.css', 'nuxt-dropzone/dropzone.css'],
+  css: ['~/assets/css/main.css', 'normalize.css', 'nuxt-dropzone/dropzone.css'],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-lodash',
-    '~/plugins/vue-lazyload',
     { src: '~/plugins/vue-inputmask', ssr: false },
     { src: '~/plugins/vue-select', ssr: false },
-    '~/plugins/vue-dropzone'
+    { src: '~/plugins/vue-lodash', ssr: true },
+    { src: '~/plugins/vue-lazyload', ssr: true },
+    { src: '~/plugins/vue-dropzone', ssr: true },
+    { src: '~/plugins/vue-validate', ssr: true },
+    { src: '~/plugins/vue-social-sharing', ssr: true },
+    { src: '~/plugins/vue-scrollto', ssr: true }
   ],
 
   /*

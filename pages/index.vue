@@ -31,13 +31,21 @@
 
         <div class="article__container">
           <ArticleCard
-            v-for="article in articles"
+            v-for="article in articlesSlice"
             :key="article.code"
             :article="article"
           />
         </div>
       </section>
-
+      <ShowMore
+        v-if="showBtn"
+        class="main__show-more"
+        @addMore="addMore"
+      />
+      <div
+        v-else
+        class="marger"
+      />
     </main>
 
     <section class="compil__wrapper">
@@ -65,6 +73,7 @@
 import ArticleCard from '~/components/ArticleCard.vue'
 import NewsItem from '~/components/NewsItem.vue'
 import Compilation from '~/components/Compilation.vue'
+import ShowMore from '~/components/ShowMore.vue'
 
 export default {
   head() {
@@ -81,6 +90,19 @@ export default {
 
   name: 'Index',
 
+  components: {
+    ArticleCard,
+    NewsItem,
+    Compilation,
+    ShowMore
+  },
+
+  data() {
+    return {
+      showValue: 3
+    }
+  },
+
   async asyncData({ store }) {
     await store.dispatch('updateArticles')
     await store.dispatch('updateNews')
@@ -92,12 +114,6 @@ export default {
     }
   },
 
-  components: {
-    ArticleCard,
-    NewsItem,
-    Compilation
-  },
-
   computed: {
     newsSlice() {
       return this.news.slice(0, 7)
@@ -107,6 +123,18 @@ export default {
     },
     threeCompilations() {
       return this.compilations.slice(0, 3)
+    },
+    articlesSlice() {
+      return this.articles.slice(0, this.showValue)
+    },
+    showBtn() {
+      return this.articles.length > this.showValue
+    }
+  },
+
+  methods: {
+    addMore() {
+      this.showValue += 1
     }
   }
 }
@@ -137,7 +165,6 @@ export default {
 .popular .article.article--big {
   width: 100%;
 }
-
 .compil__wrapper {
   background-color: #f9f9f9;
   padding: 70px 0 160px 0;
@@ -160,6 +187,7 @@ export default {
 }
 .news__heading {
   position: relative;
+  margin: 0;
 }
 .news__heading:before {
   content: '';
@@ -174,8 +202,8 @@ export default {
 .news__title {
   transition: 0.3s ease-out;
 }
-.news__list {
-  margin: 12px 0 20px 0;
+.news__list .news__title {
+  margin: 0;
 }
 .news__list .news__views {
   display: none;
@@ -188,7 +216,6 @@ export default {
 .news__all:hover {
   color: #ef1832;
 }
-
 .compil__wrapper {
   background-color: #f9f9f9;
   padding: 70px 0 160px 0;
@@ -214,5 +241,8 @@ export default {
 .article__container--jcsb {
   display: flex;
   justify-content: space-between;
+}
+.main__show-more {
+  margin: 0 0 160px 0;
 }
 </style>

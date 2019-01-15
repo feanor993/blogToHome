@@ -5,72 +5,80 @@
     <h2 class="promo__title promo__title--center promo__title--mb-60">Форма обратной связи</h2>
     <form
       class="feedback__form"
-      enctype="multipart/form-data">
+      enctype="multipart/form-data"
+      @submit.prevent="onSubmit"
+    >
       <div class="feedback__column">
         <label class="feedback__label">
           ФИО
           <input
+            v-validate="'required'"
+            v-model="form.name"
             class="feeadback__input"
             type="text"
-            name="name"
+            name="ФИО"
             placeholder="Иванов Иван Иванович"
           >
-          <span
-            class="feeadback__error">Поле нельзя оставить пустым.</span>
+          <span class="feedback__error">{{ errors.first('ФИО') }}</span>
         </label>
         <label class="feedback__label">
           Телефон
           <input
+            v-validate="'required'"
             v-mask="{mask: '+7 (999) 999 99 99', greedy: true}"
+            v-model="form.tel"
             type="text"
             placeholder="+7"
-            name="tel"
+            name="Телефон"
             class="feeadback__input"
           >
-          <span
-            class="feeadback__error"
-          >Номер телефона должен состоять из 11 цифр.</span>
+          <span class="feedback__error">{{ errors.first('Телефон') }}</span>
         </label>
         <label class="feedback__label">
           E-mail
           <input
+            v-validate="'required|email|min:10'"
+            v-model="form.email"
             class="feeadback__input"
             type="text"
-            name="email"
+            name="E-mail"
             placeholder="ivanov@gmail.com"
           >
-          <span
-            class="feeadback__error">Некорректный email.</span>
+          <span class="feedback__error">{{ errors.first('E-mail') }}</span>
         </label>
         <div class="feedback__label feedback__label--pb">Цель обращения
           <v-select
+            v-validate="'required'"
             :options="['asdf', 'asdf']"
+            v-model="form.goal"
+            name="Цель"
             placeholder="Выбрать"
             class="custom-select"/>
-          <span
-            class="feeadback__error"
-          >Выберите цель обращения.</span>
+          <span class="feedback__error">{{ errors.first('Цель') }}</span>
         </div>
       </div>
       <div class="feedback__column">
         <label class="feedback__label feedback__label--mb0">
           Сообщение
           <textarea
+            v-validate="'required|max:1000'"
+            v-model="form.text"
             class="feedback__textarea"
-            name="message"
+            name="Сообщение"
             placeholder="Текст сообщения"
           />
-          <span
-            class="feeadback__error"
-          >Вы не ввели текст.</span>
+          <span class="feedback__error">{{ errors.first('Сообщение') }}</span>
         </label>
-        <div>
+        <div class="feedback__dropzone">
           <div class="custom-dropzone">
             <dropzone
               id="dropzone"
               ref="dropzone"
               :options="options"
-              :destroy-dropzone="true"/>
+              :destroy-dropzone="true"
+              @vdropzone-sending="innerForm"
+              @vdropzone-complete="removeFiles"
+            />
           </div>
         </div>
         <div class="btn-wrapper">
@@ -79,11 +87,13 @@
             type="submit"
           >Отправить</button>
           <span
-            class="feeadback__success"
-          >Форма успешно отправлена.</span>
+            v-if="submitError"
+            class="feedback__error feedback__error--submit"
+          >Заполните все поля корректно.</span>
           <span
-            class="feeadback__submit-error"
-          >Не удалось отправить форму.</span>
+            v-else-if="submitSuccess"
+            class="feedback__error feedback__error--submit feedback__success"
+          >Форма успешно отправлена.</span>
         </div>
       </div>
     </form>
@@ -96,9 +106,94 @@ export default {
 
   data() {
     return {
+      submitError: false,
+      submitSuccess: false,
+
+      form: {
+        name: '',
+        tel: '',
+        email: '',
+        goal: '',
+        text: ''
+      },
+
       options: {
-        url: 'http://httpbin.org/post'
+        url: 'http://httpbin.org/post',
+        maxFilesize: 2,
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 10,
+        maxFiles: 10,
+        dictDefaultMessage: 'Перетащите файл или нажмите для загрузки',
+        dictFileTooBig: 'Размер файла не должен превышать 2mb',
+        dictRemoveFile: 'Удалить',
+        dictCancelUpload: 'Отменить',
+        dictCancelUploadConfirmation:
+          'Вы уверены, что хотите оменить загрузку?',
+        init: function() {
+          this.on('success', (file, responseText) => {
+            console.log(responseText)
+          })
+        }
       }
+    }
+  },
+
+  methods: {
+    onSubmit() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.submitError = false
+          this.$nuxt.$loading.start()
+          if (this.$refs.dropzone.getAcceptedFiles().length != 0) {
+            this.$refs.dropzone.processQueue()
+          } else {
+            let feedBack = new FormData()
+            for (let item in this.form) {
+              feedBack.append(item, this.form[item])
+            }
+            this.$axios({
+              method: 'post',
+              url: 'http://httpbin.org/post',
+              data: feedBack,
+              config: { headers: { 'Content-Type': 'multipart/form-data' } }
+            })
+              .then(response => {
+                console.log(response)
+                this.submitSuccess = true
+                setTimeout(() => {
+                  this.submitSuccess = false
+                }, 3000)
+                for (let key in this.form) {
+                  this.form[key] = ''
+                }
+                this.$nuxt.$loading.finish()
+              })
+              .catch(response => {
+                console.log(response)
+              })
+          }
+          return
+        }
+        this.submitError = true
+      })
+    },
+    innerForm(file, xhr, formData) {
+      for (let key in this.form) {
+        formData.append(key, this.form[key])
+      }
+    },
+    removeFiles(file, xhr, formData) {
+      this.submitSuccess = true
+      setTimeout(() => {
+        this.submitSuccess = false
+      }, 3000)
+      for (let key in this.form) {
+        this.form[key] = ''
+      }
+      this.$refs.dropzone.removeFile(file)
+      this.$nuxt.$loading.finish()
     }
   }
 }
@@ -181,6 +276,9 @@ export default {
 .feeadback__submit-error {
   color: #ef1832;
 }
+.feedback__dropzone {
+  margin: 27px 0 0 0;
+}
 .filereader__feedback {
   width: max-content;
 }
@@ -191,6 +289,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px #fafafa inset;
   -webkit-box-shadow: 0 0 0 30px #fafafa inset;
 }
 .feedback__label {
@@ -263,5 +362,100 @@ div.dropdown.v-select.custom-select.open.single.searchable .dropdown-toggle {
 }
 .custom-dropzone .dropzone {
   padding: 0;
+}
+
+.dropzone {
+  background: #fafafa;
+  min-height: 179px;
+}
+
+.vue-dropzone {
+  border: 2px dashed #dfe0e0;
+}
+
+.dz-default span {
+  color: #191919;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+}
+
+.vue-dropzone .dz-preview .dz-details {
+  background-color: #2f313c;
+}
+
+.vue-dropzone .dz-preview .dz-remove {
+  border: 1px solid #cdd0d0;
+  color: #cdd0d0;
+  border-radius: 4px;
+  text-transform: none;
+  transition: 0.3s ease-out;
+}
+
+.vue-dropzone .dz-preview .dz-remove:hover {
+  text-decoration: none;
+  color: #b43545;
+  border-color: #b43545;
+}
+
+.vue-dropzone .dz-preview .dz-image {
+  border-radius: 4px;
+}
+
+.custom-dropzone .dropzone {
+  padding: 10px;
+}
+
+.dropzone .dz-preview {
+  width: 135px;
+  height: 135px;
+  min-height: 135px;
+  margin: 10px;
+}
+
+.dz-size {
+  display: none;
+}
+
+.dropzone .dz-preview .dz-progress {
+  top: 45%;
+}
+
+.vue-dropzone {
+  position: relative;
+}
+
+.dropzone .dz-message {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+}
+
+.dz-filename,
+.dz-filename span {
+  color: #cdd0d0;
+}
+
+.feedback__error {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ef1832;
+}
+.feedback__error--submit {
+  width: max-content;
+  top: 50%;
+  right: -20px;
+  transform: translate(100%, -50%);
+  line-height: 2.2;
+}
+
+.feedback__success {
+  color: green;
 }
 </style>

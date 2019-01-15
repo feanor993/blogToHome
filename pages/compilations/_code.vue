@@ -59,6 +59,7 @@ export default {
     getCurrent() {
       return this._.find(this.compilations, ['code', this.$route.params.code])
     },
+
     getArticles() {
       return this._.reduce(
         this.getCurrent.innerArticles,

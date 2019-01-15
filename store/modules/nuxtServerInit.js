@@ -16,10 +16,10 @@ export default {
   actions: {
     async nuxtServerInit({ commit }, { app }) {
       const menu = await app.$axios.$get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/Menu.php'
+        'https://school-olymp.ru/Andrey/blog/Menu.php'
       )
       const social = await app.$axios.$get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/Social.php'
+        'https://school-olymp.ru/Andrey/blog/Social.php'
       )
       commit('GET_SOCIAL', social)
       commit('GET_MENU', menu)

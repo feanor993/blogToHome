@@ -20,7 +20,7 @@
           </li>
 
           <li 
-            v-for="ref in $store.state.NuxtServerInit.menu.reference" 
+            v-for="ref in referenses" 
             :key="ref.href"
             class="reference__item">
             <a
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Koala from '~/components/Koala.vue'
 
 export default {
@@ -47,7 +48,11 @@ export default {
 
   components: {
     Koala
-  }
+  },
+
+  computed: mapState({
+    referenses: state => state.NuxtServerInit.menu.reference
+  })
 }
 </script>
 

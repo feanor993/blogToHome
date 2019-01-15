@@ -10,14 +10,18 @@
           class="compil__item--mb80"
         />
       </div>
-
     </main>
-
+    <ShowMore
+      v-if="showBtn"
+      class="compilations__show-more"
+      @addMore="addMore"
+    />
   </div>
 </template>
 
 <script>
 import Compilation from '~/components/Compilation.vue'
+import ShowMore from '~/components/ShowMore.vue'
 
 export default {
   head() {
@@ -35,7 +39,14 @@ export default {
   name: 'Compilations',
 
   components: {
-    Compilation
+    Compilation,
+    ShowMore
+  },
+
+  data() {
+    return {
+      showValue: 6
+    }
   },
 
   async asyncData({ store }) {
@@ -47,7 +58,16 @@ export default {
 
   computed: {
     compilationsSlice() {
-      return this.compilations
+      return this.compilations.slice(0, this.showValue)
+    },
+    showBtn() {
+      return this.compilations.length > this.showValue
+    }
+  },
+
+  methods: {
+    addMore() {
+      this.showValue += 3
     }
   }
 }
@@ -76,5 +96,8 @@ export default {
   justify-content: center;
   align-items: center;
   color: #a3a4a6;
+}
+.compilations__show-more {
+  margin: 40px auto 0;
 }
 </style>

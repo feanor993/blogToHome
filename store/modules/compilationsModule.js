@@ -10,7 +10,7 @@ export default {
   actions: {
     async updateCompilations(context) {
       const req = await this.$axios.get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/Compilations.php'
+        'https://school-olymp.ru/Andrey/blog/Compilations.php'
       )
       context.commit('GET_COMPILATIONS', req.data)
     }

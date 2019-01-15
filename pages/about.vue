@@ -23,9 +23,11 @@
             href="mailto:media@school-olymp.ru"
             class="link link--red">media@school-olymp.ru</a>
           или заполните
-          <nuxt-link
-            to="/about#form"
-            class="link link--red">форму обратной связи</nuxt-link>.
+          <router-link
+            v-scroll-to="'#form'"
+            :to="{ path: 'about', hash: 'form' }"
+            class="link link--red"
+          >форму обратной связи</router-link>.
         </p>
       </section>
 
@@ -142,12 +144,16 @@
       </div>
     </div>
 
-    <Feedback ref="myForm"/>
+    <Feedback
+      id="form" 
+      ref="form"
+    />
   </div>
 </template>
 
 <script>
 import Feedback from '~/components/Feedback.vue'
+import VueScrollTo from 'vue-scrollto'
 
 export default {
   head() {
@@ -166,6 +172,12 @@ export default {
 
   components: {
     Feedback
+  },
+
+  mounted() {
+    if (this.$route.hash) {
+      VueScrollTo.scrollTo('#form')
+    }
   }
 }
 </script>

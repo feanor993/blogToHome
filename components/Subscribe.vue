@@ -39,17 +39,17 @@ export default {
   },
 
   methods: {
-    submitSubscribe: function() {
-      // this.axios
-      //   .post('http://httpbin.org/post', {
-      //     email: this.email
-      //   })
-      //   .then(function(response) {
-      //     console.log(response)
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error)
-      //   })
+    submitSubscribe() {
+      this.$axios
+        .post('http://httpbin.org/post', {
+          email: this.email
+        })
+        .then(function(response) {
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
     }
   }
 }

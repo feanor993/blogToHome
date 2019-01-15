@@ -6,7 +6,7 @@
     <section class="section">
       <div class="news__list--full">
         <NewsItem
-          v-for="item in news"
+          v-for="item in newsSlice"
           :key="item.code"
           :news="item"
           class="news__item--full-page"
@@ -14,12 +14,22 @@
       </div>
       <Info/>
     </section>
+    <ShowMore
+      v-if="showBtn"
+      class="news__show-more"
+      @addMore="addMore"
+    />
+    <div
+      v-else
+      class="marger"
+    />
   </div>
 </template>
 
 <script>
 import NewsItem from '~/components/NewsItem.vue'
 import Info from '~/components/Info.vue'
+import ShowMore from '~/components/ShowMore.vue'
 
 export default {
   head() {
@@ -38,13 +48,35 @@ export default {
 
   components: {
     NewsItem,
-    Info
+    Info,
+    ShowMore
+  },
+
+  data() {
+    return {
+      showValue: 10
+    }
   },
 
   async asyncData({ store }) {
     await store.dispatch('updateNews')
     return {
       news: store.getters.news
+    }
+  },
+
+  computed: {
+    newsSlice() {
+      return this.news.slice(0, this.showValue)
+    },
+    showBtn() {
+      return this.news.length > this.showValue
+    }
+  },
+
+  methods: {
+    addMore() {
+      this.showValue += 10
     }
   }
 }
@@ -156,5 +188,13 @@ export default {
 }
 .news__list--full {
   width: calc(100% - 345px);
+}
+.news__show-more {
+  margin: 80px 0 160px 0;
+  align-self: flex-start;
+}
+.marger {
+  height: 160px;
+  width: 100%;
 }
 </style>

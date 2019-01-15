@@ -1,6 +1,6 @@
 <template>
   <nuxt-link 
-    to="/" 
+    :to="news.code"
     class="news__item">
     <h4
       class="news__title"

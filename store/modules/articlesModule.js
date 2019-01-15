@@ -12,7 +12,7 @@ export default {
   actions: {
     async updateArticles(context) {
       const req = await this.$axios.get(
-        'http://mosolymp.school-olymp.com/Andrey/blog/ArticleCard.php'
+        'https://school-olymp.ru/Andrey/blog/ArticleCard.php'
       )
       context.commit('GET_ARTICLES', req.data)
     }

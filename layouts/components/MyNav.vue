@@ -2,21 +2,35 @@
   <nav class="menu">
     <ul class="menu__list">
       <li 
-        v-for="item in $store.state.NuxtServerInit.menu.main" 
+        v-for="item in menu"
         :key="item.href"
+        :v-scroll-to="item.scroll"
         class="menu__item">
         <nuxt-link 
           :to="item.href" 
           class="menu__link" 
           v-html="item.name"/>
       </li>
+      <li class="menu__item">
+        <nuxt-link
+          v-scroll-to="'#form'"
+          :to="{ path: 'about', hash: 'form' }"
+          class="menu__link"
+        >написать нам</nuxt-link>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'MyNav'
+  name: 'MyNav',
+
+  computed: mapState({
+    menu: state => state.NuxtServerInit.menu.main
+  })
 }
 </script>
 

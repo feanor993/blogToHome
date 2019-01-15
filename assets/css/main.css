@@ -15,22 +15,10 @@ body {
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'LavaPro-Reg';
-  src: url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.eot');
-  src: url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.woff2') format('woff2'),
-    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.woff') format('woff'),
-    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.ttf') format('truetype'),
-    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.svg#LavaPro-Reg') format('svg'),
-    url('~/assets/fonts/LavaPro-Reg/LavaPro-Reg.eot?#iefix')
-      format('embedded-opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
 * {
   box-sizing: border-box;
   color: #191919;
+  outline: none;
 }
 
 *:focus {
@@ -43,6 +31,7 @@ a {
 }
 
 .link {
+  cursor: pointer;
   text-decoration: none;
   transition: 0.3s ease-out;
   padding: 0 0 1px 0;

@@ -1,7 +1,7 @@
 <template>
   <div class="social">
     <a 
-      v-for="soc in $store.state.NuxtServerInit.social"
+      v-for="soc in social"
       :key="soc.id"
       :href="soc.url"
       target="_blank"
@@ -15,8 +15,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Social'
+  name: 'Social',
+
+  computed: mapState({
+    social: state => state.NuxtServerInit.social
+  })
 }
 </script>
 

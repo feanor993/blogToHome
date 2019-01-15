@@ -17,7 +17,6 @@
               alt="Картинка раздела">
           </div>
         </div>
-
         <div
           v-show="subjects[0] != null"
           class="subject__wrapper">
@@ -28,9 +27,7 @@
               :title="subject"
             />
           </ul>
-          
         </div>
-
         <ul class="tags__wrapper">
           <Tag
             v-for="tag in tags"
@@ -38,18 +35,24 @@
             :title="tag"
           />
         </ul>
-
         <div class="article__container">
-
           <ArticleCard
-            v-for="article in articles"
+            v-for="article in filteredArticlesSlice"
             :key="article.code"
             :article="article"
           />
-
         </div>
       </section>
     </main>
+    <ShowMore
+      v-if="showBtn"
+      class="category__show-more"
+      @addMore="addMore"
+    />
+    <div
+      v-else
+      class="marger"
+    />
   </div>
 </template>
 
@@ -57,15 +60,25 @@
 import ArticleCard from '~/components/ArticleCard.vue'
 import Tag from '~/components/Tag.vue'
 import Subject from '~/components/Subject.vue'
+import ShowMore from '~/components/ShowMore.vue'
 
 export default {
+  async validate({ route, store }) {
+    const menus = await store.state.NuxtServerInit.menu.main
+    return menus
+      .reduce((res, item) => {
+        return res.concat(item.href)
+      }, [])
+      .includes(route.fullPath)
+  },
+
   head() {
     return {
-      title: 'Олимпиады',
+      title: this.filteredTitles.title,
       meta: [
         {
           name: 'description',
-          content: 'Олимпиады'
+          content: this.filteredTitles.title
         }
       ]
     }
@@ -76,7 +89,14 @@ export default {
   components: {
     ArticleCard,
     Tag,
-    Subject
+    Subject,
+    ShowMore
+  },
+
+  data() {
+    return {
+      showValue: 6
+    }
   },
 
   async asyncData({ store }) {
@@ -89,16 +109,26 @@ export default {
   },
 
   computed: {
+    currentRout() {
+      return this.$route.params.category
+    },
+
     filteredTitles() {
       return this._.find(this.titles, {
-        id: 'olymp'
+        id: this.currentRout
       })
     },
+
     filteredArticles() {
       return this._.filter(this.articles, {
-        category: 'Олимпиады'
+        category: this.filteredTitles.title
       })
     },
+
+    filteredArticlesSlice() {
+      return this.filteredArticles.slice(0, this.showValue)
+    },
+
     tags() {
       return this._.uniq(
         this._.reduce(
@@ -110,6 +140,7 @@ export default {
         )
       )
     },
+
     subjects() {
       return this._.uniq(
         this._.reduce(
@@ -120,6 +151,16 @@ export default {
           []
         )
       )
+    },
+
+    showBtn() {
+      return this.filteredArticles.length > this.showValue
+    }
+  },
+
+  methods: {
+    addMore() {
+      this.showValue += 6
     }
   }
 }
@@ -189,5 +230,12 @@ export default {
 
 .subject__list {
   display: flex;
+}
+.category__show-more {
+  margin: 0 auto 160px;
+}
+.marger {
+  height: 160px;
+  width: 100%;
 }
 </style>
