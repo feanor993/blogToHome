@@ -1,8 +1,10 @@
 <template>
   <li class="tags__item">
-    <nuxt-link
-      to="/search"
-      class="tags">#{{ title }}</nuxt-link>
+
+    <div
+      class="tags"
+      @click="toPath(title)"
+    >#{{ title }}</div>
   </li>
 </template>
 
@@ -14,6 +16,12 @@ export default {
     title: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    toPath(title) {
+      this.$store.dispatch('updateQuery', title)
+      this.$router.push({ path: 'search', query: { q: title } })
     }
   }
 }

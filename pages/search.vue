@@ -5,23 +5,51 @@
         <div class="search__section">
           <div class="search__field">
             <input
+              :value="query"
               class="input"
               type="text">
-            
+
             <button
               class="search__btn"
               type="button">Найти</button>
           </div>
           <div class="sort-by">
-            <a
+            <span
               class="sort-by__stroke"
-              href="#">по дате</a>
-            <a
+              @click="toggleDateSort()"
+            >по дате</span>
+            <span
               class="sort-by__stroke"
-              href="#">по популярности</a>
+              @click="toggleViewsSort()">по популярности</span>
           </div>
+          <ul v-if="pages.length > 1">
+            <li
+              :class="{'dis': disBack}"
+              @click="goBack()">Назад</li>
+            <li
+              v-for="(item, index) in pages"
+              :key="item.id"
+              :class="{'act': activePage(index)}"
+              @click="setPage(item)"
+            >
+              {{ item }}
+            </li>
+            <li
+              :class="{'dis': disForward}"
+              @click="goForward()">Вперед</li>
+          </ul>
+          <SearchCard
+            v-for="item in filteredArticles"
+            :key="item.id"
+            :url="item.code"
+            :img="item.image"
+            :category="item.category"
+            :title="item.title"
+            :text="item.description"
+            :date="item.date"
+            :views="item.views"
+          />
         </div>
-
         <Info/>
       </section>
     </div>
@@ -30,7 +58,8 @@
 
 <script>
 import Info from '~/components/Info.vue'
-
+import { mapActions } from 'vuex'
+import SearchCard from '~/components/SearchCard.vue'
 export default {
   head() {
     return {
@@ -45,13 +74,111 @@ export default {
   },
 
   name: 'Search',
-
   components: {
-    Info
+    Info,
+    SearchCard
+  },
+  data() {
+    return {
+      query: '',
+      pages: [],
+      currentPage: 0,
+      articlesPerPage: 3,
+      askDate: true,
+      askViews: false
+    }
+  },
+  computed: {
+    queryArticles() {
+      return this.articles.filter(item => item.tags.includes(this.query))
+    },
+    filteredArticles() {
+      if (this.queryArticles) {
+        let curPlus = this.currentPage + 1
+        let from = curPlus * this.articlesPerPage - this.articlesPerPage
+        let to = curPlus * this.articlesPerPage
+        return this.queryArticles.slice(from, to)
+      }
+    },
+    disBack() {
+      return this.currentPage <= 0
+    },
+    disForward() {
+      return this.currentPage + 1 >= this.pages.length
+    }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(newVal) {
+        this.query = newVal.query.q
+        this.$store.dispatch('updateQuery', newVal.query.q)
+      }
+    }
+  },
+  mounted() {
+    this.sortData()
+    for (let i = 0; i < Math.ceil(this.queryArticles.length / 3); i++) {
+      this.pages.push(i + 1)
+    }
+    this.$store.dispatch('updateQuery', this.$route.query.q)
+    this.query = this.$route.query.q
+  },
+  methods: {
+    setPage(item) {
+      this.currentPage = item - 1
+    },
+    goBack() {
+      if (this.currentPage > 0) {
+        this.currentPage--
+      }
+    },
+    goForward() {
+      if (this.currentPage + 1 < this.pages.length) {
+        this.currentPage++
+      }
+    },
+    toggleDateSort() {
+      this.askDate = !this.askDate
+      if (this.askDate) {
+        this.sortData()
+      } else {
+        this.reverseData()
+      }
+    },
+    toggleViewsSort() {
+      this.askViews = !this.askViews
+      if (this.askViews) {
+        this.sortViews()
+      } else {
+        this.reverseViews()
+      }
+    },
+    activePage(index) {
+      return this.currentPage === index
+    },
+    ...mapActions(['sortData', 'reverseData', 'sortViews', 'reverseViews'])
+  },
+  async asyncData({ store }) {
+    // if (typeof window !== 'undefined') {
+    //   console.log(2345)
+    // }
+    await store.dispatch('updateArticles')
+    return {
+      articles: store.getters.articles,
+      qq: store.getters.query
+    }
   }
 }
 </script>
-
+<style lang="scss" scoped>
+.dis {
+  color: red;
+}
+.act {
+  color: green;
+}
+</style>
 <style>
 .search__btn {
   width: 130px;
